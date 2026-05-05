@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="text-2xl font-bold mb-4">Your Generated ID Card</h1>
+
+  <div class="grid gap-6 lg:grid-cols-2">
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+      <h2 class="text-xl font-semibold mb-4">Preview</h2>
+      {% if card.generated_card %}
+        <img src="{{ card.generated_card.url }}" alt="Generated ID Card" class="w-full rounded-lg shadow-sm mb-4" />
+        <a href="{{ card.generated_card.url }}" download class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
+          Download Generated Card
+        </a>
+      {% else %}
+        <p class="text-gray-600">The generated card is not available yet.</p>
+      {% endif %}
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+      <h2 class="text-xl font-semibold mb-4">Card details</h2>
+      <div class="space-y-2 text-gray-700">
+        <p><strong>Name:</strong> {{ card.name }}</p>
+        <p><strong>Date of birth:</strong> {{ card.dob }}</p>
+        <p><strong>ID number:</strong> {{ card.id_number }}</p>
+        <p><strong>Verification code:</strong> {{ card.verification_code }}</p>
+      </div>
+      <div class="mt-6 space-x-2">
+        <a href="{% url 'edit-card' card.pk %}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+          Edit details
+        </a>
+        <a href="{% url 'verify-card' card.verification_code %}" class="inline-block bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded">
+          Verify card
+        </a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

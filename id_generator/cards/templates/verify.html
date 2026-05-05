@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Verify ID Card</h2>
+  <p>Verification Code: {{ card.verification_code }}</p>
+  <img src="{{ card.qr_code.url }}" alt="QR Code">
+{% endblock %}

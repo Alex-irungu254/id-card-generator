@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="text-2xl font-bold mb-4">{{ title|default:"Create ID Card" }}</h1>
+  <form method="post" enctype="multipart/form-data" class="space-y-6">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-200">
+        <label for="{{ field.id_for_label }}" class="block text-gray-700 font-semibold mb-2">
+          {{ field.label }}
+        </label>
+        {{ field }}
+        {% if field.help_text %}
+          <p class="text-sm text-gray-500 mt-2">{{ field.help_text }}</p>
+        {% endif %}
+        {% if field.errors %}
+          <div class="mt-2 text-red-600 text-sm">
+            {% for error in field.errors %}
+              <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      Submit
+    </button>
+  </form>
+
+  {% if card and card.generated_card %}
+    <div class="mt-8 bg-white p-5 rounded-lg shadow-sm border border-gray-200">
+      <h2 class="text-xl font-semibold mb-3">Current generated card</h2>
+      <img src="{{ card.generated_card.url }}" alt="Generated ID Card" class="w-full rounded-lg shadow-sm mb-4" />
+      <a href="{{ card.generated_card.url }}" download class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
+        Download Current Card
+      </a>
+    </div>
+  {% endif %}
+
+{% endblock %}

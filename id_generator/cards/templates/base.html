@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Card_Generator{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+</head>
+<body>
+  <div class="min-h-screen bg-gray-300">
+    <nav class="bg-white shadow">
+      <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <a href="{% url 'create-card' %}" class="text-xl font-bold text-gray-800">ID Card Generator</a>
+        <div>
+          <a href="{% url 'create-card' %}" class="text-gray-600 hover:text-gray-800 mx-2">Create Card</a>
+        </div>
+      </div>
+    </nav>
+    <main class="container p-6 m-6 mx-auto px-4 py-6">
+      {% block content %}
+      {% endblock %}
+    </main>
+  
+</body>
+</html>
